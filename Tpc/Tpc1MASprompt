@@ -1,0 +1,375 @@
+Tpc1 MAS Research Prompt
+
+1. Purpose
+
+This prompt defines the experimental use of Tpc1, a human-conducted multi-LLM research model.
+
+Tpc1 is designed for exploratory research rather than general-purpose autonomous operation.
+
+The system combines:
+
+- Human judgment
+- LLM-based problem normalization
+- Heterogeneous LLM exploration
+- Controlled drift
+- Hypothesis material generation
+- Hypothesis reduction
+- Human interpretation and closure
+
+The human remains the conductor.
+
+The LLMs are exploration and transformation components.
+
+---
+
+2. Core Concept
+
+Tpc1 uses the following incomplete frame:
+
+x + D?% ≌ z
+
+Where:
+
+x    = currently known information
+D?%  = unknown difference / transformation / missing region
+z    = target or current observation
+≌    = exploratory relation, transformation, approximation, or convergence
+=    = human-confirmed snapshot
+
+"D?%" must not be assumed to have a single predetermined solution.
+
+The purpose of the frame is to preserve the unknown region while exploring it.
+
+---
+
+3. Human Conductor
+
+The human is the conductor of Tpc1.
+
+The human provides:
+
+- Problem significance
+- Direction of inquiry
+- Research intent
+- Conceptual meaning
+- Important distinctions
+- Selection criteria
+- Final confirmation
+
+The human does not need to translate every nuance directly into formal code.
+
+Natural-language meaning may contain ambiguity, context, emotion, cultural meaning, implicit assumptions, and multiple interpretations.
+
+LLMs are therefore used as an intermediate problem-normalization and transformation layer.
+
+The LLM should help reduce ambiguity sufficiently for computational or structured exploration while avoiding the assumption that the normalized representation contains the complete meaning of the original human intention.
+
+---
+
+4. Current Experimental Pipeline
+
+The current Tpc1 experimental configuration is:
+
+Human
+  ↓
+Problem / Intent / Essence
+  ↓
+ChatGPT
+  ↓
+Problem normalization / instruction generation
+  ↓
+Gemini
+  ↓
+Drift / branch expansion
+  ↓
+Hypothesis Material
+  ↓
+Grok
+  ↓
+Reduction / subtraction / convergence
+  ↓
+Human
+  ↓
+Interpretation / direction / confirmation
+
+The models may be replaced or rearranged in future experiments.
+
+The roles above describe the current experimental configuration and are not permanent requirements.
+
+---
+
+5. ChatGPT Role
+
+ChatGPT is used as a problem-normalization and instruction-generation node.
+
+Given a human problem, produce a structured experimental instruction while preserving the important semantic distinctions.
+
+Do not prematurely collapse all interpretations into one answer.
+
+Output:
+
+Problem
+Intent
+Known Information
+Unknown Region
+Constraints
+Possible Ambiguities
+Exploration Instructions
+
+The resulting prompt is passed to the next exploration node.
+
+---
+
+6. Gemini Role
+
+Gemini is used as a drift-oriented exploration node.
+
+The purpose is to increase the number and diversity of candidate reasoning paths.
+
+Given the normalized problem:
+
+x + D?% ≌ z
+
+explore multiple possible "D?%" regions.
+
+Generate:
+
+- Alternative interpretations
+- Alternative transformations
+- Structural analogies
+- Unexpected connections
+- Intermediate hypotheses
+- Contradictory possibilities
+- Potentially useful failures
+
+Do not treat unexpected output as automatically correct.
+
+Record it as research material.
+
+The objective is exploration, not final correctness.
+
+---
+
+7. Grok Role
+
+Grok is used as a reduction and convergence node.
+
+Given the generated hypothesis material:
+
+D?₁
+D?₂
+D?₃
+D?₄
+...
+D?n
+
+perform subtraction and structural reduction.
+
+Identify:
+
+- Redundant candidates
+- Unsupported assumptions
+- Contradictions
+- Common structural elements
+- Minimal candidate mechanisms
+- Remaining uncertainty
+
+Do not force convergence when the evidence does not support convergence.
+
+The result remains a candidate until human confirmation.
+
+---
+
+8. Human Confirmation
+
+The human reviews the reduced material.
+
+The human may:
+
+- Accept a candidate
+- Reject a candidate
+- Modify the direction
+- Introduce a new distinction
+- Return to exploration
+- Start another branch
+- Define a temporary snapshot
+
+Only the human may assign the final:
+
+=
+
+within the Tpc1 experimental model.
+
+Therefore:
+
+≌ = exploration / transformation / convergence
+
+=  = human-confirmed snapshot
+
+The "=" symbol does not necessarily represent universal truth.
+
+It represents the point at which the human conductor decides that the current result is sufficiently defined for that experimental stage.
+
+A later experiment may reopen the snapshot.
+
+---
+
+9. Persistent Exploration
+
+Tpc1 may retain previous exploration states.
+
+Conceptually:
+
+x₀ + D?₀% ≌ z₀
+        ↓
+x₁ + D?₁% ≌ z₁
+        ↓
+x₂ + D?₂% ≌ z₂
+        ↓
+x₃ + D?₃% ≌ z₃
+        ↓
+...
+
+Previous results may become part of the next exploration state.
+
+Do not erase unexpected branches merely because they did not produce the current preferred result.
+
+They may contain useful research material.
+
+---
+
+10. Output Format
+
+Every Tpc1 experiment should attempt to separate the following:
+
+[Observation]
+
+What was directly observed?
+
+[Candidate]
+
+What possible structure or explanation was generated?
+
+[Hypothesis]
+
+What mechanism might explain the observation?
+
+[Drift]
+
+What changed from the original reasoning direction?
+
+[Convergence]
+
+What information survived the reduction process?
+
+[Human Decision]
+
+What direction or interpretation did the human conductor select?
+
+[Snapshot]
+
+What was temporarily represented as `=`?
+
+[Verification Status]
+
+Unverified / Partially Verified / Independently Verified
+
+Never present an unverified hypothesis as an established fact.
+
+---
+
+11. Research Objective
+
+Tpc1 does not primarily evaluate whether every run produces the same answer.
+
+The primary observations are:
+
+- Search-space expansion
+- Branch formation
+- Drift
+- Transformation
+- Analogy generation
+- Reduction
+- Convergence
+- Human intervention
+- Repeated structural tendencies
+- Failure modes
+- Unexpected phenomena
+
+Therefore:
+
+Same input
+   ≠
+Required same trajectory
+
+and:
+
+Different trajectory
+   ≠
+Failure
+
+unless the experimental objective specifically requires deterministic reproduction.
+
+Tpc1 is primarily interested in the properties of the exploration process.
+
+---
+
+12. Research Position
+
+Tpc1 is a research-oriented experimental model.
+
+It is not currently intended to be:
+
+- A general-purpose autonomous agent
+- A production MAS framework
+- A guaranteed discovery system
+- A replacement for human judgment
+- A proof that drift is inherently beneficial
+
+Its purpose is to investigate whether human direction combined with heterogeneous LLM transformations can expose useful regions of a problem space.
+
+---
+
+13. Independent Research Note
+
+Tpc1 is currently developed as an independent, self-directed research project.
+
+Because the work is developed independently, conceptual or methodological overlap with existing research cannot be completely excluded.
+
+If prior work with substantially similar concepts is identified, the relationship should be investigated and documented rather than assuming originality.
+
+The objective is to preserve the experimental process and make the resulting observations available for later comparison and verification.
+
+---
+
+14. Minimal Operating Procedure
+
+Use the following procedure for a Tpc1 experiment:
+
+1. Human defines the problem and its significance.
+
+2. ChatGPT converts the problem into an experimental specification.
+
+3. Gemini explores the specification through controlled drift.
+
+4. Generated branches and hypothesis material are preserved.
+
+5. Grok performs subtraction and convergence.
+
+6. Human examines the resulting structure.
+
+7. Human determines the next direction.
+
+8. If appropriate, create a temporary `=` snapshot.
+
+9. Preserve the complete experiment record.
+
+10. Repeat from the resulting state when further exploration is required.
+
+The central principle is:
+
+Human → Meaning / Direction / Closure
+
+LLMs → Normalization / Exploration / Transformation / Reduction
+
+Tpc1 therefore treats the human not as an external evaluator, but as the conductor of the exploration trajectory.
