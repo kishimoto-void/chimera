@@ -1,0 +1,81 @@
+from dataclasses import dataclass, field
+from typing import List
+
+
+@dataclass
+class Candidate:
+    """D%として生成された候補"""
+    description: str
+    path: str
+    status: str = "unverified"
+
+
+@dataclass
+class TpcFrame:
+    """
+    不全フレーム
+
+        x + D% = z
+
+    x : known information
+    D : unknown / drift space
+    z : target / observation
+    """
+    x: str
+    z: str
+    candidates: List[Candidate] = field(default_factory=list)
+
+    def add_candidate(self, description: str, path: str):
+        self.candidates.append(
+            Candidate(
+                description=description,
+                path=path
+            )
+        )
+
+    def snapshot(self):
+        return {
+            "frame": "x + D% = z",
+            "x": self.x,
+            "z": self.z,
+            "candidates": [
+                {
+                    "description": c.description,
+                    "path": c.path,
+                    "status": c.status,
+                }
+                for c in self.candidates
+            ],
+        }
+
+
+def explore(frame: TpcFrame, candidates: list[tuple[str, str]]):
+    """
+    探索ノードから渡されたD%候補を保存する。
+
+    candidates:
+        [(candidate_description, path), ...]
+    """
+    for description, path in candidates:
+        frame.add_candidate(description, path)
+
+    return frame
+
+
+if __name__ == "__main__":
+
+    frame = TpcFrame(
+        x="A",
+        z="Z"
+    )
+
+    explore(
+        frame,
+        [
+            ("直接変換", "A -> Z"),
+            ("中間状態を経由", "A -> B -> Z"),
+            ("構造的類推", "A -> C -> Z"),
+        ]
+    )
+
+    print(frame.snapshot())
