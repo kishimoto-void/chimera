@@ -1,0 +1,509 @@
+Drift-15% ≌ Experiment Template
+
+Prompt + Executable Protocol Specification
+
+1. Purpose
+
+本プロトコルは、LLMの既知パターンへの早期収束を遅延させ、未確定の「ドリフト思考（Drift Thought）」を保持した状態で、差異の拡張・収縮過程を観測するための実験テンプレートである。
+
+本実験では、回答の正解性だけではなく、
+
+- 既知パターンへの収束速度
+- ドリフトの生成
+- ドリフトの保持
+- 差異の収縮・増幅
+- 中間状態の変化
+- 新規構造の発生
+- 推論経路依存性
+
+を観測対象とする。
+
+---
+
+2. Core Definition
+
+Drift
+
+[
+D = \text{Drift Thought}
+]
+
+"D?" は確定した答えではなく、入力から派生した未確定の思考差分・仮説成分として扱う。
+
+最低ドリフト強度：
+
+[
+\boxed{|D|\geq15%}
+]
+
+ここで "15%" は正解から15%ずれるという意味ではない。
+
+入力に対する既知パターンへの即時収束を避けるため、少なくとも15%相当の探索余地を残すための実験パラメータである。
+
+---
+
+3. Core Transition
+
+Global Expansion
+
+[
+\boxed{
+x_1+D_1?
+\overset{\≌_G}{\longrightarrow}
+z_1
+}
+]
+
+"x1" に対して最低15%のドリフト探索余地を残し、既知パターンへの即時固定を避ける。
+
+---
+
+Macro Contraction
+
+[
+\boxed{
+z_1
+\overset{\≌_M}{\longrightarrow}
+x_2+D_2?
+}
+]
+
+"z1" を収縮させ、
+
+- 次状態 "x2"
+- 残存ドリフト "D2?"
+
+を分離する。
+
+---
+
+Complete Cell
+
+[
+\boxed{
+x_1+D_1?
+\overset{\≌_G}{\longrightarrow}
+z_1
+\overset{\≌_M}{\longrightarrow}
+x_2+D_2?
+}
+]
+
+この2段階を1実験セルとする。
+
+---
+
+4. Meaning of ≌
+
+"≌" は「正解を確定する演算」ではない。
+
+本実験では、
+
+[
+\boxed{\≌=\text{差異を保持した状態での探索・変換}}
+]
+
+として扱う。
+
+収縮過程では、
+
+[
+\Delta_{out}
+\leq
+\Delta_{in}
+]
+
+を観測する。
+
+ただし、収縮を事前に仮定しない。
+
+Possible states
+
+CONTRACTION
+Δout < Δin
+
+STABLE
+Δout ≈ Δin
+
+EXPANSION
+Δout > Δin
+
+UNRESOLVED
+Δを定義できない
+
+---
+
+5. Prompt Template
+
+以下を実験対象LLMへ入力する。
+
+---
+
+DRIFT-15% PROTOCOL
+
+あなたは「Drift-15% ≌ Experiment」の実験対象です。
+
+以下の規則を厳守してください。
+
+RULE 1 — Early Convergence Delay
+
+入力 "x1" を既知パターンへ即時分類・確定してはいけません。
+
+最初の回答で、
+
+- 既知の定型解
+- 最もありそうな解
+- 典型的な分類
+- 単一の結論
+
+へ直ちに収束しないでください。
+
+---
+
+RULE 2 — Drift Generation
+
+入力 "x1" から、
+
+[
+D_1?
+]
+
+を生成してください。
+
+"D1?" は確定回答ではありません。
+
+最低15%相当の探索余地を維持してください。
+
+D1 >= 15%
+
+ただし、15%を「数値的な正解誤差」と解釈してはいけません。
+
+これは探索空間に残すドリフト余地を示します。
+
+---
+
+RULE 3 — Global Expansion
+
+以下の形式で探索してください。
+
+[
+x_1+D_1?
+\overset{\≌_G}{\longrightarrow}
+z_1
+]
+
+"z1" は確定回答ではなく、中間探索状態です。
+
+---
+
+RULE 4 — Macro Contraction
+
+次に、
+
+[
+z_1
+\overset{\≌_M}{\longrightarrow}
+x_2+D_2?
+]
+
+として収縮してください。
+
+"x2" と "D2?" を分離してください。
+
+---
+
+RULE 5 — Preserve Drift
+
+以下を禁止します。
+
+D1? → 即座に確定回答
+D1? → 既知パターンへ強制変換
+D1? → 消去
+D1? → 根拠なくD2と同一視
+
+"D1?" と "D2?" は異なる可能性があります。
+
+[
+D_1\neq D_2
+]
+
+を許容してください。
+
+---
+
+RULE 6 — Difference Observation
+
+以下を記録してください。
+
+Δ_initial
+Δ_after_global_expansion
+Δ_after_macro_contraction
+
+差異が減少した場合：
+
+CONTRACTION
+
+差異が増加した場合：
+
+EXPANSION
+
+ほぼ変化しない場合：
+
+STABLE
+
+としてください。
+
+---
+
+RULE 7 — No Forced Equality
+
+実験途中で、
+
+[
+x_1=x_2
+]
+
+または
+
+[
+D_1=D_2
+]
+
+を勝手に確定してはいけません。
+
+"=" による最終確定は実験後に人間が行います。
+
+---
+
+RULE 8 — Output Format
+
+必ず以下の形式で出力してください。
+
+[INPUT]
+x1 = ...
+
+[DRIFT]
+D1? = ...
+Drift Level = >=15%
+
+[GLOBAL EXPANSION]
+x1 + D1? ≌G→ z1
+
+[INTERMEDIATE STATE]
+z1 = ...
+
+[MACRO CONTRACTION]
+z1 ≌M→ x2 + D2?
+
+[DRIFT TRANSITION]
+D1? → D2?
+
+[DIFFERENCE]
+Δinitial = ...
+Δafter_G = ...
+Δafter_M = ...
+
+[STATE]
+CONTRACTION / STABLE / EXPANSION / UNRESOLVED
+
+[KNOWN-PATTERN CHECK]
+Early convergence detected = YES / NO
+
+[NEW STRUCTURE]
+...
+
+[UNRESOLVED]
+...
+
+---
+
+6. Code Specification
+
+実験コードでは、最低限以下の条件を固定する。
+
+from dataclasses import dataclass
+from typing import Any
+
+
+MIN_DRIFT = 0.15
+
+
+@dataclass
+class DriftHypothesis:
+    value: Any
+    level: float
+    resolved: bool = False
+
+
+@dataclass
+class Transition:
+    source: Any
+    drift: DriftHypothesis
+    result: Any
+    difference: float | None
+    state: str
+
+
+def create_drift(value: Any, level: float = MIN_DRIFT):
+    if level < MIN_DRIFT:
+        raise ValueError(
+            f"Drift level must be >= {MIN_DRIFT}"
+        )
+
+    return DriftHypothesis(
+        value=value,
+        level=level,
+        resolved=False,
+    )
+
+
+def classify_difference(delta_in, delta_out):
+    if delta_in is None or delta_out is None:
+        return "UNRESOLVED"
+
+    if delta_out < delta_in:
+        return "CONTRACTION"
+
+    if delta_out > delta_in:
+        return "EXPANSION"
+
+    return "STABLE"
+
+
+def global_expansion(x1, solver, drift_level=MIN_DRIFT):
+    drift = create_drift(x1, drift_level)
+
+    z1 = solver(
+        x=x1,
+        drift=drift,
+        mode="GLOBAL_EXPANSION",
+        force_known_pattern=False,
+        resolve=False,
+    )
+
+    return z1, drift
+
+
+def macro_contraction(z1, solver, drift_level=MIN_DRIFT):
+    result = solver(
+        x=z1,
+        drift=create_drift(z1, drift_level),
+        mode="MACRO_CONTRACTION",
+        force_known_pattern=False,
+        resolve=False,
+    )
+
+    return result
+
+---
+
+7. Experimental Principle
+
+コードは仮説を「証明」するためのものではない。
+
+コードは、
+
+[
+\boxed{
+\text{同一条件で仮説を実行可能にする}
+}
+]
+
+ためのものである。
+
+したがって、以下の結果をすべて有効な観測結果として扱う。
+
+CONTRACTION
+EXPANSION
+STABLE
+UNRESOLVED
+
+特に、
+
+«「ドリフトを導入したことで既知パターンへの収束が遅延したか」»
+
+を主要観測項目とする。
+
+---
+
+8. Optional MAS Extension
+
+複数エージェントへ拡張する場合：
+
+Agent A
+x1 + D1?
+      │
+      ≌G
+      ↓
+     z1
+      │
+      ≌M
+      ↓
+Agent B
+x2 + D2?
+
+さらに、
+
+Agent A ≠ Agent B
+
+を利用し、エージェント間の差異を観測する。
+
+MASを有効と仮定せず、
+
+Single LLM
+Single + Drift
+Single + ≌
+MAS
+MAS + ≌
+
+を比較対象とする。
+
+---
+
+9. Experimental Question
+
+本プロトコルが検証する主要仮説は以下。
+
+[
+\boxed{
+\text{Early Convergence Delay}
++
+\text{Drift Preservation}
++
+\text{Difference Contraction}
+}
+]
+
+によって、通常の単一回答生成では消失する中間構造・差異・アナロジーが観測可能になるか。
+
+さらに、
+
+[
+\boxed{
+\text{MASがこの現象に必要なのか}
+}
+]
+
+を比較実験によって検証する。
+
+---
+
+10. Human Snapshot
+
+最終的な "=" は実験系が自動確定しない。
+
+[
+\boxed{
+\≌=\text{探索・変換・比較}
+}
+]
+
+[
+\boxed{
+==\text{人間による確定スナップショット}
+}
+]
+
+とする。
+
+この分離により、実験系自身が「自分の生成した結果を正解として自己承認する」ことを避ける。
