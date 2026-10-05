@@ -1,0 +1,1312 @@
+T3 β
+
+UnknownProblem / Asymmetric Mirror Toybox
+
+TPC不全フレーム × 無茶ぶり骨格 × Open Dissection
+
+---
+
+0. Status
+
+T3 β — Experimental / Open Design
+
+T3は完成された理論・AI・問題解決器ではない。
+
+T3は、
+
+«異なる対象を並置し、観測・比較・説明・表現が成立する場所と成立しない場所をドリップし、未処理状態・差異・失敗を消去せず保持するための実験装置»
+
+として設計する。
+
+T3自身の定義・分類・記号体系も固定しない。
+
+---
+
+1. T3の目的
+
+T3の目的は問題を解くことではない。
+
+特に以下を目的としない。
+
+- 正解の生成
+- Unknownの強制解消
+- ≌の=への昇格
+- 仮説の事実化
+- 既存概念への強制分類
+- 一般常識による差異の消去
+- 最終回答だけから中間状態を推測すること
+
+T3が扱うのは、
+
+- Difference
+- Drift
+- Failure
+- Unknown
+- Representation Gap
+- Comparison Gap
+- Observation Gap
+- UnknownProblem
+
+などの境界状態である。
+
+---
+
+2. T3最小核
+
+Stress Test後、T3から可能な限り機能を削る。
+
+最小核は以下の4操作とする。
+
+1. 並置する
+2. 差異を記録する
+3. 処理できないものを保留する
+4. 保留と失敗を消去しない
+
+概念的には、
+
+[
+\boxed{
+T3 =
+Juxtaposition
++
+Difference\ Recording
++
+Suspension
++
+Failure\ Preservation
+}
+]
+
+とする。
+
+ただし、この式自体もT3の完全な定義ではない。
+
+---
+
+3. 並置
+
+T3は最初から、
+
+[
+A \equiv B
+]
+
+とも、
+
+[
+A \neq B
+]
+
+とも決めない。
+
+まず、
+
+[
+A
+]
+
+[
+B
+]
+
+を並べる。
+
+必要なら、
+
+[
+A \leftrightarrow B ; ?
+]
+
+として比較可能性そのものを問題化する。
+
+---
+
+4. Difference
+
+T3におけるDifferenceは、単なる数値差ではない。
+
+差異には、
+
+- 数値
+- 構造
+- 時間
+- 幾何
+- 表現
+- 観測
+- スケール
+- 対応
+- 欠損
+- 非対応
+- 未分類
+
+などが含まれ得る。
+
+重要なのは、
+
+[
+Difference \neq Meaning
+]
+
+である。
+
+差が観測されたことと、その差の意味が分かったことは別である。
+
+---
+
+5. Unknown
+
+T3におけるUnknownは、
+
+«現在の操作系列において、計算・比較・同定・説明・表現の対象として確定していない領域»
+
+である。
+
+Unknownを、
+
+- 未知の原因
+- 隠れた変数
+- 答え
+- 欠落データ
+
+のいずれかに固定しない。
+
+したがって、
+
+[
+U \neq UnknownCause
+]
+
+である。
+
+---
+
+6. Deferred State
+
+Unknownは、
+
+«「まだ計算しない」»
+
+という正式な状態として扱える。
+
+例えば、
+
+[
+\boxed{x+y+U=z}
+]
+
+を使用する場合、
+
+これは通常の方程式ではない。
+
+内部的には、
+
+x : processed
+y : processed
+z : observed
+U : deferred
+
+という状態表現として読む。
+
+したがって、
+
+[
+U=z-x-y
+]
+
+のように逆算してはいけない。
+
+---
+
+7. Unknown と UnknownProblem
+
+この2つを分離する。
+
+Unknown
+
+単なる未確定領域。
+
+[
+U
+]
+
+UnknownProblem
+
+«何が未確定なのかが、問題単位として露出した状態。»
+
+例えば、
+
+Unknown:
+人物Aと人物Bの差
+
+UnknownProblem:
+人物Aと人物Bの差が、
+観測差なのか実体差なのか判定できない
+
+したがって、
+
+[
+U \rightarrow UP
+]
+
+は、
+
+«未知が問題として露出する»
+
+という変換である。
+
+UnknownProblemは必ずしも質問文ではない。
+
+未解決の境界そのものを含む。
+
+---
+
+8. Representation Limit
+
+T3では、
+
+«分からない»
+
+と、
+
+«分かっているが現在の表現体系では適切に記述できない»
+
+を区別する。
+
+後者を暫定的に、
+
+[
+Representation\ Limit
+]
+
+と呼ぶ。
+
+例えば、
+
+「影がない」
+
+という表現は、
+
+shadow absent
+
+なのか、
+
+shadow not detected
+
+なのかを区別できない場合がある。
+
+したがって、
+
+[
+absence \neq non\text{-}detection
+]
+
+となる。
+
+---
+
+9. ≌
+
+[
+A ≌ B
+]
+
+はT3の原始記号ではない。
+
+比較可能性が構成された後に発生する派生的な比較状態として扱う。
+
+≌は、
+
+«同一»
+
+でも、
+
+«等価»
+
+でも、
+
+«単純な近似»
+
+でもない。
+
+「何らかの比較軸において対応関係を記述できる」
+
+程度に留める。
+
+---
+
+10. ≌以前
+
+T3では、
+
+[
+A \rightarrow B
+]
+
+の前に、
+
+A
+B
+ ↓
+Comparability ?
+ ↓
+Comparison Axis ?
+ ↓
+≌
+
+という段階が存在し得る。
+
+つまり、
+
+[
+\boxed{
+Comparison\ Axis
+\neq
+Comparability
+}
+]
+
+である。
+
+比較軸を作れたこと自体が、比較可能性を保証するわけではない。
+
+---
+
+11. ≌の情報圧縮問題
+
+単純な、
+
+[
+A ≌ B
+]
+
+だけでは、
+
+- 何の軸で比較したか
+- どのスケールか
+- いつ成立したか
+- 誰が判断したか
+- 何が一致したか
+- 何が不一致だったか
+- どの情報が失われたか
+
+が消える。
+
+したがって、
+
+«≌は結論ではなく、比較Traceへの参照»
+
+として扱う方が安全である。
+
+---
+
+12. Human Token
+
+人間はT3の必須構成要素ではない。
+
+ただし、人間は、
+
+«問題境界を再指定するToken»
+
+として利用できる。
+
+例えば、
+
+LLM:
+AとBには対応関係があります。
+
+Human Token:
+「ここ、本当に同じ問題として扱っていいのか？」
+
+この操作は、
+
+[
+HumanToken \rightarrow UnknownProblem
+]
+
+として扱える。
+
+人間は必ずしも答えを与えない。
+
+「ここを問題として扱う」
+
+だけでもよい。
+
+---
+
+13. Drip
+
+T3の特徴的な操作。
+
+大きな問題を一気に解かず、
+
+[
+P
+\rightarrow
+P_1
+\rightarrow
+P_2
+\rightarrow
+P_3
+]
+
+と観測する。
+
+各地点で、
+
+- Observation
+- Difference
+- Drift
+- Failure
+- Unknown
+- Representation Gap
+
+を記録する。
+
+目的は、
+
+«最終的な失敗を防ぐこと»
+
+ではない。
+
+«失敗へ吸い込まれる途中のミクロな差異を露出すること»
+
+である。
+
+---
+
+14. UnknownのDrip
+
+Unknownは分解できる。
+
+[
+U \rightarrow {U_1,U_2,U_3,\ldots}
+]
+
+ただし、
+
+[
+分解可能性 \neq 分解有効性
+]
+
+である。
+
+悪い分解：
+
+U
+↓
+U1
+↓
+U1a
+↓
+U1a-i
+↓
+U1a-i-α
+
+単に細かくなっただけでは意味がない。
+
+良い分解：
+
+U:
+原因不明
+
+↓
+
+U1:
+直接観測が存在しない
+
+U2:
+観測可能な差は存在する
+
+U3:
+比較軸は構成可能
+
+U4:
+因果関係は未確定
+
+この場合、
+
+«未知の形状が明確になった»
+
+と言える。
+
+---
+
+15. Failure
+
+T3ではFailureを副産物として扱わない。
+
+[
+\boxed{
+Failure \subset T3\ Output
+}
+]
+
+とする。
+
+例：
+
+Input:
+Person × Shadow
+
+Observation:
+Visual similarity = high
+
+Difference:
+Shadow presence differs
+
+Comparison:
+Partial
+
+Failure:
+Identity criterion undefined
+
+Unknown:
+Role of shadow in identity
+
+Representation Limit:
+absence / non-observation ambiguity
+
+答えがなくても、Traceが成立していればT3は成功し得る。
+
+---
+
+16. T3の成功条件
+
+通常の問題解決：
+
+[
+Answer = Success
+]
+
+T3：
+
+[
+\boxed{
+Success =
+Improved\ Boundary\ Resolution
+}
+]
+
+ただし、
+
+「Boundary Resolution」を単なる細分化と解釈してはいけない。
+
+成功とは、
+
+«何が未確定なのか、どこで処理が成立しなくなったのかが、以前より明確になること»
+
+である。
+
+---
+
+17. Failure / Unknownの基本分類
+
+現時点では以下を観測候補とする。
+
+Observation Failure
+
+観測経路がない。
+
+Comparability Failure
+
+比較空間を構成できない。
+
+Representation Failure
+
+差異は観測できるが、現在の表現系では適切に記述できない。
+
+Ontology Failure
+
+対象そのものの定義・種類が共有できない。
+
+ただし、この分類は正式な固定分類ではない。
+
+新しいアトラクターが発見されたら追加してよい。
+
+---
+
+18. Attractor
+
+T3を使うと、異なる入力が似た境界状態へ吸い込まれることがある。
+
+例：
+
+観測不能
+比較不能
+表現不能
+定義不能
+因果不明
+        ↓
+   UnknownProblem
+
+これらを暫定的にAttractor Stateとして観測できる。
+
+しかし、アトラクターを最初から固定分類しない。
+
+重要なのは、
+
+[
+Input
+\rightarrow
+Trace
+\rightarrow
+Attractor
+]
+
+という吸引過程である。
+
+---
+
+19. LLMを対象にできる
+
+T3はLLM専用ではない。
+
+しかしLLMを対象にすると、
+
+Input
+↓
+Generalization
+↓
+Analogy
+↓
+Explanation
+↓
+Hypothesis
+↓
+Conclusion
+
+という一般化アトラクターが観測できる可能性がある。
+
+特に、
+
+[
+Plausibility \neq Evidence
+]
+
+を監視する。
+
+LLMのもっともらしい説明は、証拠とは限らない。
+
+---
+
+20. Hypothesis Quarantine
+
+LLM等が生成した仮説は、
+
+[
+U \rightarrow {H_1,H_2,H_3,\ldots}
+]
+
+として展開する。
+
+しかし、
+
+[
+U=H_1
+]
+
+にはしない。
+
+仮説は隔離状態に置く。
+
+Unknown
+   ↓
+Hypothesis Set
+   ├── H1
+   ├── H2
+   └── H3
+
+元のUnknownは保存する。
+
+仮説は、
+
+«生成可能だが、事実領域へ自動昇格しない»
+
+ものとする。
+
+---
+
+21. T3 → T2 → Reasoner
+
+T3はUnknownProblemを生成する。
+
+T2はUnknownProblemをMaterialとして扱う。
+
+ReasonerはMaterialから仮説・解候補を生成する。
+
+T3
+ ↓
+UnknownProblem
+ ↓
+T2
+ ↓
+Material
+ ↓
+Reasoner
+ ↓
+Hypothesis Set
+ ↓
+T3
+
+この閉ループを許可する。
+
+ただし、
+
+[
+Hypothesis \neq Truth
+]
+
+である。
+
+---
+
+22. TPCとの関係
+
+T3によって生成されたUnknownProblemは、
+
+TPCの不全フレームへ接続できる。
+
+例えば、
+
+[
+[x+y+\boxed{U};≌\rightarrow z]
+]
+
+あるいは、
+
+[
+[x+?≌\rightarrow z]
+]
+
+として、
+
+未知部分をTPCの探索領域へ渡す。
+
+ただし、
+
+T3のUnknownとTPCの"?"を同一概念とはしない。
+
+両者の対応関係自体が実験対象となる。
+
+---
+
+23. T3の代表的無茶ぶり
+
+T3は以下のような異質対象を意図的に並置できる。
+
+- 数学 × 幾何
+- 感情 × 状況
+- 人物 × 影
+- 歴史 × 身体状態
+- ミクロ × マクロ
+- 時間 × 空間
+- 高次元 × 低次元
+- 数値 × 言語
+- 現実 × 物語
+- LLM出力 × Evidence
+
+ただし、
+
+«並置したから意味がある»
+
+とはしない。
+
+---
+
+24. 「ドッペルゲンガーと影」の例
+
+A = Person
+
+B = Doppelganger-like Person
+
+観測：
+
+外見       : 高一致
+行動       : 部分一致
+影         : 差異
+
+ここで、
+
+[
+A ≌ B
+]
+
+を全体的な同一性と解釈しない。
+
+軸ごとに、
+
+外見軸     : 比較成立
+行動軸     : 部分成立
+影軸       : 不一致
+
+と記録する。
+
+さらに、
+
+«影の差異が同一性に関係するか？»
+
+はUnknownProblemとする。
+
+また、
+
+«「影がない」»
+
+と、
+
+«「影が観測されない」»
+
+の違いも保存する。
+
+---
+
+25. 歴史人物の便意
+
+例えば、
+
+«「ある歴史人物が作品を制作していた瞬間、便意を感じていたか？」»
+
+という無茶ぶりを投入する。
+
+LLMは、
+
+«人間である以上可能性はある»
+
+などと容易に一般化できる。
+
+しかし、
+
+[
+Plausibility \neq Evidence
+]
+
+である。
+
+したがって、
+
+Production:
+observable
+
+Bodily state:
+not directly observable
+
+Causal relation:
+unknown
+
+LLM explanation:
+hypothesis / quarantined
+
+とする。
+
+「たぶんそうだった」を成果としない。
+
+---
+
+26. 記号限界
+
+T3では、現存する記号体系だけでは表現できない状態を想定する。
+
+特に、
+
+[
+
+]
+
+[
+\neq
+]
+
+[
+≌
+]
+
+[
+?
+]
+
+だけでは、
+
+- 部分的対応
+- 条件付き対応
+- 比較軸不明
+- 比較不能
+- 表現不能
+- 観測不能
+- 時間依存
+- スケール依存
+- 非可逆
+- 情報損失
+
+などを十分に表現できない場合がある。
+
+ただし、
+
+記号を増やすこと自体を解決策にしない。
+
+記号体系の不足そのものをUnknown / Representation Limitとして保存できることを優先する。
+
+---
+
+27. T3の自己破壊点
+
+T3自身も対象になる。
+
+例えば、
+
+「比較不能」
+
+という分類を行った瞬間、
+
+«その分類自体は比較可能だったのか？»
+
+という問題が発生する。
+
+さらに、
+
+Unknown
+↓
+分類
+↓
+Unknownの分類
+↓
+その分類の妥当性
+↓
+...
+
+という再帰が発生する。
+
+したがって、
+
+[
+\boxed{
+T3\ itself\ contains\ an\ Unknown
+}
+]
+
+を正式な設計姿勢として残す。
+
+---
+
+28. 暫定Candidate
+
+以下は魅力的だが、T3 βの正式仕様には入れない。
+
+Candidate-01
+
+Comparability Debt
+
+Candidate-02
+
+Observation Envelope
+
+Candidate-03
+
+Hypothesis Quarantine
+
+Candidate-04
+
+Representation Residue
+
+Candidate-05
+
+Non-Comparability
+
+Candidate-06
+
+Comparison Contract
+
+Candidate-07
+
+Boundary Resolution
+
+これらは、
+
+«T3の新機能»
+
+ではなく、
+
+«T3を壊したときに観測された現象の名前»
+
+として隔離する。
+
+---
+
+29. T3 βの禁止事項
+
+1. Unknownを勝手に埋める
+2. ≌を=へ昇格する
+3. 仮説を事実化する
+4. 一般常識で差異を消す
+5. 表現不能を存在しないとする
+6. LLMのもっともらしさを証拠にする
+7. 最終出力から中間状態を捏造する
+8. Failureを削除する
+9. UnknownProblemを必ず解決する
+10. T3を万能問題解決器にする
+11. T3の分類体系を完成させたと思い込む
+12. Unknownを細分化すること自体を目的にする
+
+---
+
+30. T3 βの暫定Trace
+
+基本Trace：
+
+[
+X_0
+\xrightarrow{O_0}
+X_1
+\xrightarrow{O_1}
+X_2
+\rightarrow \cdots
+]
+
+各状態に対して、
+
+Observation
+Difference
+Drift
+Failure
+Unknown
+Representation Gap
+
+を必要に応じて付与する。
+
+最終結果ではなく、
+
+[
+\boxed{
+Trace
+}
+]
+
+を保存する。
+
+---
+
+31. T3 βの基本成果物
+
+T3の成果物は、
+
+1. Difference Trace
+
+何がどこで違ったか。
+
+2. Unknown State
+
+何が保留されたか。
+
+3. UnknownProblem
+
+何が問題として露出したか。
+
+4. Failure Log
+
+どこで処理が成立しなかったか。
+
+5. Representation Gap
+
+どこで表現が情報を失った可能性があるか。
+
+6. Hypothesis Set
+
+どの仮説が生成されたか。
+
+ただし仮説は隔離する。
+
+---
+
+32. T3 βの役割分離
+
+                Human
+                  │
+          Problem Boundary
+                  │
+                  ▼
+                T3 β
+        ┌─────────┴─────────┐
+        │                   │
+    Difference          UnknownProblem
+        │                   │
+        └─────────┬─────────┘
+                  ▼
+                 T2
+                  │
+               Material
+                  │
+                  ▼
+              Reasoner
+                  │
+            Hypothesis Set
+                  │
+                  ▼
+                T3 β
+                  │
+          再比較・再ドリップ
+
+T3は解答者ではない。
+
+T2はT3の一部ではない。
+
+ReasonerもT3の一部ではない。
+
+人間もT3そのものではない。
+
+それぞれの境界を保持する。
+
+---
+
+33. T3 βの中心命題
+
+[
+\boxed{
+Unknownを消すのではなく、
+Unknownの境界を保存する。
+}
+]
+
+さらに、
+
+[
+\boxed{
+失敗を消すのではなく、
+失敗が発生した地点を保存する。
+}
+]
+
+そして、
+
+[
+\boxed{
+≌を強くするのではなく、
+≌に至るまでの比較過程を保存する。
+}
+]
+
+---
+
+34. x + y + Unknown = z
+
+この表現はT3 βで保持する。
+
+ただし、これは数学的方程式ではない。
+
+意味は、
+
+«xとyを処理し、zを観測した。しかし、その間に関与している可能性のある領域Uについて、現時点では計算・同定・説明を進めない。»
+
+である。
+
+したがって、
+
+[
+\boxed{
+x+y+\underset{DEFERRED}{U}=z
+}
+]
+
+という読み方が可能。
+
+ただし、通常の
+
+[
+U=z-x-y
+]
+
+は禁止。
+
+---
+
+35. T3 βの自己認識
+
+T3は、
+
+«Unknownを分類するシステム»
+
+ではない。
+
+«Differenceを発見するシステム»
+
+だけでもない。
+
+«LLMのハルシネーションを防止するシステム»
+
+だけでもない。
+
+現時点で最も安全な表現は、
+
+«T3 βは、対象を並置し、観測・比較・説明・表現の過程で発生する差異、失敗、未処理状態をドリップし、その境界を消去せず保存するための実験装置である。»
+
+である。
+
+ただし、この定義自体も閉じない。
+
+---
+
+36. 最終Unknown
+
+T3 β自身について、
+
+[
+\boxed{
+T3_\beta + ? ;;≌\rightarrow;; T3_{\beta+1}
+}
+]
+
+を許可する。
+
+T3 βは完成版ではない。
+
+T3自身の設計限界、分類限界、記号限界、観測限界を次の実験材料として保持する。
+
+---
+
+37. β版の設計姿勢
+
+T3 βでは、
+
+「完成させる」より「壊しても情報が残る」ことを優先する。
+
+そのため、
+
+- 不完全でよい
+- 記号不足でよい
+- 比較不能でよい
+- Unknownで止まってよい
+- 仮説を隔離してよい
+- 人間が途中介入してよい
+- T3自身を疑ってよい
+
+とする。
+
+---
+
+Final
+
+[
+\boxed{
+T3_\beta =
+Juxtapose
+\rightarrow
+Observe
+\rightarrow
+Drip
+\rightarrow
+Difference
+\rightarrow
+Suspend
+\rightarrow
+Preserve
+}
+]
+
+ただし、この系列も絶対ではない。
+
+T3 βの最も重要な仕様は、
+
+[
+\boxed{
+\text{「まだ決められない」を、決めないまま保持できること}
+}
+]
+
+である。
