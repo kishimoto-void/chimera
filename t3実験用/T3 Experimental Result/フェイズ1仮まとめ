@@ -1,0 +1,748 @@
+Chimera Toybox
+
+仮説と既存研究の二重整合性チェック
+
+Phase 1 / External Literature Cross-Check
+
+確認日: 2026-10-07
+
+---
+
+0. この文書の目的
+
+本資料は、独学で設計してきた Chimera / T2 / T3 / TPC / Capsule / γ-index 等について、
+
+1. 自分が先行して立てていた仮説
+2. 現在の設計構造
+3. 既存のLLM reasoning / Multi-Agent Debate研究
+
+の間に、どの程度の整合性が存在するかを確認するための二重チェックである。
+
+ここでいう「整合性」は、
+
+«同一理論・同一手法である»
+
+ことを意味しない。
+
+あくまで、
+
+«問題設定、観測対象、設計方向、失敗モード、探索・収束の扱いなどに構造的な対応がある»
+
+ことを指す。
+
+本資料では新規性・優越性・実用性を主張しない。
+
+---
+
+1. 最初に置くべき目的関数
+
+Chimeraの目的を、
+
+«「LLMを安全に、有能に、賢くする」»
+
+とは定義しない。
+
+より具体的には、
+
+«LLMの暴走・混濁・早期収束などの望ましくない挙動を抑えながら、必要な探索能力・個人適応性・議論能力を維持できる構造を検討する。»
+
+さらに簡略化すれば、
+
+«「なんかアレなLLM」を、壊さず、混ぜず、急いで決めつけず、使える状態に近づける。»
+
+という作業仮説である。
+
+---
+
+2. 仮説 → 既存研究 一次照合
+
+Chimera側の仮説| 既存研究との対応| 判定
+探索と収束を分離・制御した方がよい| HyPERはLLM reasoningをdynamic expand–reduce controlとして扱い、探索–活用のバランスをphase-dependentな問題として扱う| 強い整合
+探索しすぎてもよくない| SIGMAはLLMのoverthinkingを問題として扱い、exploration / exploitationを制御する| 強い整合
+早すぎる収束は危険| Multi-Agent LLMのprocess-level diagnostic研究はpremature convergenceをoutcome-only評価では捉えにくい失敗として明示| 強い整合
+多数決・合意＝正解ではない| MAD研究ではvanilla debateがmajority voteを下回る場合や、consensus設計による問題が報告されている| 強い整合
+同質的な議論は誤りを増幅し得る| Belief Entrenchment研究は共有された誤りの強化を報告し、biased consensus研究はconformity/noiseによる集団的biasを示す| 強い整合
+議論は常時実行する必要がない| LASEはinteractionを必要な局面に限定するadaptive debateを提案| 強い整合
+議論過程そのものを観測したい| Diagnostic Study / The Confident Liar等がprocess-level signalsを評価対象にしている| 強い整合
+「わしゃわしゃ」を探索状態として観測する| 直接一致する既存概念は今回の調査では確認できない。ただし探索量・trajectory・interaction dynamicsを観測する研究とは方向性が近い| 部分整合 / 独自仮説
+T2のDiffusion → Convergence| HyPERのhypothesis path expansion → reductionと構造的に近い| 構造的整合
+TPCによる探索量・Drift制御| adaptive debate / dynamic reasoning controlと問題設定が近い| 部分整合
+T3による探索軌跡・破綻観測| process-level evaluation / trajectory diagnosticsと方向性が近い| 部分整合〜強い整合
+γ-indexを評価軸として利用| 今回確認した文献にはγ-indexそのものは存在しない| 未照合 / 独自設計
+Capsuleによる個人差保持| persona / diversity / heterogeneous agents研究と部分的に接続可能だが、Chimera Capsuleと同一ではない| 部分整合
+Hash A/Bによる境界・状態分離| 今回確認したLLM debate文献とは直接対応しない| 未照合 / 独自設計
+γ-index / Δ-index / "is"によるbinding| 今回確認した文献から直接対応する構造は確認できない| 未照合 / 独自設計
+η機構による探索・収束調整| adaptive exploration / debate timingとは概念的に近いが、η機構そのものは未検証| 仮説段階
+
+---
+
+3. 一次照合で特に強かった部分
+
+3.1 T2 ↔ Exploration / Exploitation
+
+T2では、
+
+INPUT
+ ↓
+MATERIAL
+ ↓
+SCALE
+ ↓
+DRIFT
+ ↓
+≌C
+ ↓
+HYPOTHESIS
+ ↓
+DIFFUSION
+ ↓
+CONVERGENCE
+
+という探索→拡散→収束の構造を置いている。
+
+これは2026年のHyPERが扱う、
+
+«hypothesis path expansion → reduction»
+
+というdynamic expand–reduce controlと、問題設定レベルでかなり近い。HyPERは探索と活用の最適バランスがphase-dependentであるとし、固定的な探索規則ではなく、計算資源を仮説経路へ動的に再配分する。
+
+またSIGMAも、LLM reasoningにおけるoverthinkingを問題として扱い、guided explorationとprioritized exploitationによって探索–活用の制御を行う。
+
+判定
+
+T2の中心問題設定は、現在のLLM reasoning研究と明確に整合する。
+
+ただし、
+
+«T2 = HyPER»
+
+ではない。
+
+一致しているのは「探索と収束を動的に扱う」という上位問題設定であり、アルゴリズムや数学的同値性ではない。
+
+---
+
+4. TPC ↔ Adaptive Exploration / Debate
+
+TPCは、探索対象に対してDrift / Material Mutationを与え、探索範囲を調整しながら仮説候補を保持する方向を取っている。
+
+一方LASEは、
+
+«debateを常時実行するのではなく、必要な局面でinteractionを発生させる»
+
+というadaptive debateを提案している。さらに静的なdebateよりも、近いsingle-agent token costでmulti-agent-level performanceを狙っている。
+
+これはTPCが考えている、
+
+«「どの程度わしゃわしゃさせるか」»
+
+という問題とかなり近い。
+
+判定
+
+TPCの探索制御という発想には既存研究との強い問題設定上の整合性がある。
+
+ただしTPC独自のDrift operator、D0/D5/D15/D30等が既存研究から直接導かれたわけではない。
+
+---
+
+5. T3 ↔ Process-Level Evaluation
+
+T3では最終回答だけでなく、
+
+INPUT
+ ↓
+TRANSFORMATION
+ ↓
+BRANCH
+ ↓
+DEFORMATION
+ ↓
+RESIDUAL
+ ↓
+OUTPUT
+
+のような変化・分岐・破綻を観測する方向を取っている。
+
+これは非常に重要な整合点。
+
+2026年のDiagnostic Studyでは、multi-agent debateを最終結果だけで評価すると、
+
+- sycophancy
+- domination
+- premature convergence
+
+などを見落とす可能性があるとして、engagement、responsiveness、influence asymmetry、balance、stabilityなどのprocess-level diagnosticsを導入している。
+
+またThe Confident Liarも、最終回答だけではなく、reasoning token、confidence、LLM-as-judgeによる評価などを比較している。
+
+判定
+
+T3の「結果だけでなく過程を観測する」という方向は、かなり明確に既存研究と整合する。
+
+一方、
+
+«T3のResidual = LLM内部の実在する残差»
+
+とは言えない。
+
+これはT3側でも既に慎重に扱っている部分であり、観測可能な出力から得られるcandidateとして扱う必要がある。
+
+---
+
+6. 「わしゃわしゃ」仮説
+
+現在の「わしゃわしゃ」は、
+
+«探索中に候補が揺れたり、近傍候補を比較したり、再評価したりする観測上の状態»
+
+として扱う。
+
+重要なのは、
+
+わしゃわしゃ
+≠
+残渣
+≠
+感情
+≠
+エントロピー
+≠
+物理的力
+
+とすること。
+
+今回確認した文献には「わしゃわしゃ」に直接対応する既存の標準概念は見つからなかった。
+
+一方、HyPERのhypothesis-path exploration、SIGMAのguided exploration、process-level diagnosticsなどとは観測対象の方向性が近い。
+
+判定
+
+独自観測ラベルとして保持する価値はある。
+
+ただし、現時点では新しい科学的変数として扱うべきではない。
+
+---
+
+7. 「早期収束は危険」という仮説の二重チェック
+
+これはかなり強い。
+
+第1チェック
+
+Diagnostic Studyは、premature convergenceを通常のoutcome-based evaluationでは見落とし得る失敗として扱う。
+
+第2チェック
+
+Belief Entrenchment研究では、MADが共有された誤りを強化する現象を扱い、
+
+1. biased static initial belief
+2. homogenized debate dynamics
+
+を原因として分析している。
+
+さらに2026年のDemystifying Multi-Agent Debateでは、vanilla MADがmajority voteを下回ることがあり、initial viewpoint diversityとcalibrated confidenceが重要だと報告されている。
+
+判定
+
+「早く一致したから良い」という設計を疑う方向は、かなり強く文献と整合する。
+
+---
+
+8. 「合意しすぎると危険」という仮説
+
+これはさらに別方向からも確認できる。
+
+Emergence of Biased Consensusでは、LLM debateにおいてconformityとnoiseが集団的なbiased normの形成を促す可能性が示され、agent heterogeneityがその形成を抑制する方向に働くと報告されている。
+
+また2025年のVoting or Consensus?では、意思決定プロトコルそのものが結果へ影響し、タスクによってvotingとconsensusの性能が異なり、discussion roundsを増やすことが必ずしも改善につながらないと報告されている。
+
+判定
+
+Chimera側の、
+
+«「混ぜれば賢くなる」ではなく、混ぜ方そのものを制御する»
+
+という思想にはかなり強い外部整合性がある。
+
+---
+
+9. Capsuleの位置づけ
+
+Capsuleについては注意が必要。
+
+現在のChimeraでは、
+
+«個人固有の状態・制約・嗜好などを保持しながら、LLM間・人間間で議論可能な共通状態を形成する»
+
+という方向を考えている。
+
+既存研究には、
+
+- viewpoint diversity
+- heterogeneous agents
+- persona / cultural representation
+- calibrated confidence
+
+など、関連する研究方向は存在する。
+
+例えばDemystifying Multi-Agent Debateでは、初期viewpointのdiversityが重要な要素として扱われている。
+
+またbiased consensus研究では、agent heterogeneityがbiased consensusの発生を抑える方向に働く。
+
+しかし、
+
+«Chimera Capsule = 既存のpersona / diversity手法»
+
+ではない。
+
+判定
+
+関連研究との接点はあるが、Capsuleそのものの有効性は未検証。
+
+ここはPhase 2以降の重要な検証対象。
+
+---
+
+10. γ-index
+
+γ-indexは今回確認した文献群には直接存在しない。
+
+したがって、
+
+«「γ-indexは既存研究で有効性が確認されている」»
+
+とは言えない。
+
+ただし、process-level evaluation、confidence、reasoning quality、stability等を測定しようとする研究の方向とは接続できる。
+
+判定
+
+独自評価機構として保留。
+
+むしろここは無理に既存概念へ寄せない方がいい。
+
+---
+
+11. Hash A / Hash B
+
+現在の設計思想では、
+
+Hash A
+= immutable / canonical contract
+
+Hash B
+= runtime observation
+
+として、固定された契約と実行時状態を分離する。
+
+今回確認したLLM reasoning / debate論文では、この構造そのものに直接対応するものは確認できなかった。
+
+したがって、
+
+«既存研究に裏付けられた»
+
+とは言わない。
+
+判定
+
+独自の安全・再現性設計候補。
+
+これはLLM reasoning性能そのものより、
+
+- state integrity
+- reproducibility
+- boundary preservation
+- runtime drift detection
+
+側の検証課題として切り出す方が適切。
+
+---
+
+12. γ-index / Δ-index / "is"
+
+これも今回確認した論文から直接対応する既存手法は確認できなかった。
+
+したがって、
+
+«LLM研究で一般的な仕組みである»
+
+とは現時点では言えない。
+
+ただし、Chimera内部で
+
+γ = 評価
+Δ = 差異
+is = 状態・対応の固定
+
+のような役割分担を行うなら、T2/T3の探索状態と評価状態を混同しないための内部設計としては意味がある。
+
+判定
+
+独自設計。効果は未検証。
+
+---
+
+13. η機構
+
+η機構は現段階では、
+
+«探索量・収束タイミング・状態変化に応じて探索／収束の挙動を調整する機構»
+
+として扱う。
+
+これはLASEのadaptive engagementやHyPERのdynamic expand–reduce、SIGMAのexploration–exploitation controlと問題設定上の接点を持つ。
+
+しかし、
+
+«ηという機構そのものが有効»
+
+とはまだ言えない。
+
+判定
+
+かなり面白い仮説だが、現時点では仮説。
+
+---
+
+14. 二次チェック：反証側から見た場合
+
+ここからが重要。
+
+一次チェックでは「似ている論文」を探した。
+
+二次チェックでは逆に、
+
+«「本当に似ていると言ってよいのか？」»
+
+を検査する。
+
+14.1 T2はHyPERそのものか？
+
+No。
+
+HyPERはMoE multi-path decodingに対するdynamic expand–reduce control。
+
+T2はMaterial、Scale、Drift、≌C、Hypothesis、Diffusion、Convergenceというより抽象度の高い探索プロトコル。
+
+したがって、
+
+«「T2はHyPERを再発明した」»
+
+とは言えない。
+
+言えるのは、
+
+«探索–収束を動的に扱うという問題設定が整合する。»
+
+まで。
+
+---
+
+14.2 TPCはadaptive debateそのものか？
+
+No。
+
+LASEはleader–supporter構造によるadaptive debate。
+
+TPCはDrift / Material Mutationによる探索制御。
+
+同一手法ではない。
+
+ただし、
+
+«「必要なときだけ探索・相互作用を増やす」»
+
+という上位概念では接点がある。
+
+---
+
+14.3 T3はprocess-level evaluationそのものか？
+
+No。
+
+process-level evaluationは広い研究領域。
+
+T3はその中で、
+
+- branch
+- deformation
+- residual candidate
+- transformation record
+- failure boundary
+
+などを扱う独自の観測枠組み。
+
+したがって、
+
+«process-level evaluationと整合する独自Toybox»
+
+という表現が妥当。
+
+---
+
+14.4 「わしゃわしゃ」は既存概念か？
+
+現時点では、
+
+直接対応する標準概念とは確認できない。
+
+したがって、この言葉はむしろ残した方がよい可能性がある。
+
+ただし、
+
+«わしゃわしゃ = exploration entropy»
+
+などと後から勝手に定義しない。
+
+まず観測ラベルとして使い、測定可能性を実験する。
+
+---
+
+14.5 Capsuleは本当に「真のパーソナライズ」なのか？
+
+まだ全く証明されていない。
+
+現在言えるのは、
+
+«個人固有の状態を保持しながら共通の議論空間へ接続する設計仮説»
+
+まで。
+
+個人差を保持することが性能・安全性・議論品質を改善するかは、独立した実験が必要。
+
+---
+
+15. 二重チェックの最終判定
+
+機構| 文献整合性| 現時点の扱い
+T2| ★★★★★| 強い問題設定整合
+TPC| ★★★★☆| adaptive explorationと整合
+T3| ★★★★☆| process-level evaluationと整合
+わしゃわしゃ| ★★★☆☆| 独自観測仮説
+η機構| ★★★★☆| adaptive controlと整合、未検証
+Capsule| ★★★☆☆| diversity / personalizationと部分整合
+γ-index| ★★☆☆☆| 独自評価軸、未検証
+Hash A/B| ★★☆☆☆| 独自境界・再現性設計
+γ/Δ/"is"| ★★☆☆☆| 独自binding設計
+Chimera統合| ★★★★☆| 個々の研究問題を横断するToyboxとして整合
+
+※ 星は「既存研究で有効性が証明された度合い」ではなく、今回確認した文献との問題設定・設計方向の整合度を表す。
+
+---
+
+16. 現時点で言えること
+
+今回の二重チェックから比較的安全に言えるのは、
+
+«Chimeraの中心思想には、現在のLLM reasoning / multi-agent reasoning研究が実際に問題として扱っている複数の課題との整合性が存在する。»
+
+特に、
+
+- exploration / exploitation
+- premature convergence
+- belief entrenchment
+- biased consensus
+- debate protocol
+- process-level evaluation
+- adaptive interaction
+- reasoning efficiency
+
+については、2025–2026年の研究と明確な接点がある。
+
+一方で、
+
+«Chimera全体が有効である»
+
+ことは証明されていない。
+
+また、
+
+«γ-index、Hash A/B、Capsule、η機構、わしゃわしゃが既存研究で実証済み»
+
+とも言えない。
+
+---
+
+17. 重要な境界線
+
+本研究では以下を混同しない。
+
+既存研究との整合
+        ≠
+理論的同値
+        ≠
+新規性
+        ≠
+有効性
+        ≠
+再現性
+        ≠
+実用性
+
+したがって現時点での最も安全な表現は、
+
+«「独立に設計した実験的Toyboxの複数の仮説が、後から確認した既存研究の問題設定と予想以上に整合していた。これが偶然なのか、一般的に再現する構造なのかは未検証であり、第三者による検証価値を判断してほしい。」»
+
+である。
+
+---
+
+18. Phase 1の結論
+
+Phase 1では、Chimeraを完成理論として証明する必要はない。
+
+目的は、
+
+«「このToyboxは、専門家が検証する価値のある研究対象なのか？」»
+
+を判定できる材料を揃えること。
+
+今回の二重チェックでは、
+
+「完全な独走・空想として切り捨てるべきものではない」
+
+というところまでは支持できる。
+
+同時に、
+
+「有効性が確認された」
+
+ところまでは到達していない。
+
+したがってPhase 1の最終状態は、
+
+独自仮説
+ ↓
+独自設計
+ ↓
+実験
+ ↓
+既存研究照合
+ ↓
+一次整合
+ ↓
+反証側から再照合
+ ↓
+「複数の中心問題が既存研究と整合」
+ ↓
+第三者検証へ
+
+とする。
+
+---
+
+19. 次フェーズ
+
+Phase 2では、
+
+1. γ-index単体
+2. T2単体
+3. T3単体
+4. TPC単体
+5. η機構単体
+6. Capsule単体
+7. Hash A/B
+8. 各組み合わせ
+9. 全統合Chimera
+
+を可能な限り独立に比較する。
+
+特に重要なのは、
+
+«「何が効いたのか分からない」という統合システム問題を避けること。»
+
+したがって、
+
+Baseline
+   ↓
++ γ
+   ↓
++ T2
+   ↓
++ T3
+   ↓
++ TPC
+   ↓
++ η
+   ↓
++ Capsule
+   ↓
++ Hash A/B
+   ↓
+Full Chimera
+
+というablationが望ましい。
+
+最終的に、
+
+«「どれか一つでもイカしている」»
+
+なら、その部品単位で研究成果になり得る。
+
+全てが有効だった場合に初めて、
+
+«Chimeraとしての統合効果»
+
+を検証する。
+
+---
+
+20. 現時点での自己評価
+
+本資料は、新規性を主張するものではない。
+
+設計者は独学であり、現時点では第三者環境における完全な再現性を保証できない。
+
+設計・実験にはLLM、人力MAS、既存論文等の補助を利用している。
+
+したがって現在の状態は、
+
+«「補助輪付きBABY」»
+
+という自己評価が最も近い。
+
+ただし、その状態でも、
+
+«独立に立てた仮説 → 実装 → 実験 → 文献照合 → 二重チェック»
+
+まで到達した。
+
+次に必要なのは自己評価ではなく、
+
+«第三者による再現可能性の検査»
+
+である。
+
+---
+
+参考文献・今回の主要照合対象
+
+- Qiu et al., HyPER: Bridging Exploration and Exploitation for Scalable LLM Reasoning with Hypothesis Path Expansion and Reduction, ICML 2026.
+- Yoa et al., Efficient Multi-Agent Reasoning via Confidence-Guided Adaptive Debate, ICML 2026.
+- Pitre et al., A Diagnostic Study of Multi-Agent LLMs for Real-World Debates, ICML 2026.
+- Okawa, Emergence of Biased Consensus in Multi-Agent LLM Debates, ICML 2026.
+- Oh et al., From Belief Entrenchment to Robust Reasoning in LLM Agents, TACL 2026.
+- Zhu et al., Demystifying Multi-Agent Debate: The Role of Confidence and Diversity, Findings of ACL 2026.
+- Shi et al., Exploration-Exploitation Reshaping towards Efficient Reasoning for Large Language Models, Findings of ACL 2026.
+- Kaesberg et al., Voting or Consensus? Decision-Making in Multi-Agent Debate, Findings of ACL 2025.
+- The Confident Liar: Diagnosing Multi-Agent Debate with Log-Probabilities and LLM-as-Judge, ACL SRW 2026.
+- CONSENSAGENT: Towards Efficient and Effective Consensus in Multi-Agent LLM Interactions Through Sycophancy Mitigation, Findings of ACL 2025.
+
+---
+
+最終注記
+
+本資料が示すのは「整合性」であり「証明」ではない。
+
+Chimeraが実際に有効であるか、再現可能であるか、一般化できるか、既存手法を上回るかについては、独立した実験が必要である。
+
+そのため、本資料の最終的な問いは、
+
+«「Chimeraは正しいか？」»
+
+ではなく、
+
+«「Chimeraを第三者が検証する価値はあるか？」»
+
+とする。
